@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 
+bool problem_with_clear=true;
 
 typedef struct Circle{
    float rad;
@@ -17,20 +19,13 @@ float calculate_square(float radius);
 void output_characteristics_of_circle(circle *ss, int i);
 float execute();
 void check_umovu(circle *ss, int n);
+float input_formula();
 
 void main()
 {
     execute();
 }
 
-float input_radius(){
-    float rad;
-    
-    printf("dlia vikonannia rozrahunkiv vistachaie tilki radiuse, tomu vvedit yogo:  ");
-    scanf("%f",&rad);
-    
-    return rad;
-}
 
 float calculate_length(float radius){
     float x;
@@ -60,8 +55,7 @@ float execute(){
     for(i = 0;i < n;i++){
         
         printf("\n\n%d)",i);
-        
-        qq[i].rad = input_radius();
+        qq[i].rad = input_formula();
         x = qq[i].rad;
         qq[i].square = calculate_square(x);
         qq[i].length = calculate_length(x);
@@ -99,3 +93,24 @@ void check_umovu(circle *ss, int n){
         }
     }
 }
+
+float input_formula(){
+    char* radius;
+    int i;
+    float x=0;
+	char alpha[50];
+	
+	if(problem_with_clear==true){gets(alpha); problem_with_clear=false;}
+	
+	fgets(alpha, 50, stdin);
+	
+    radius=strchr(alpha,'=');
+	for(i=1;i<strlen(radius);i++){
+	    if((radius[i]=='\n')&&(i!=1)){break;}
+	    x=x*10+(radius[i]-'0');
+	}
+	return x;
+}
+
+
+
